@@ -10,9 +10,6 @@ variable "prefix" {
     description = "a prefix for resources to be identified"
 }
 
-variable "policy-document" {
-    description = "Blob text of a valid policy document"
-}
 
 
 // 
