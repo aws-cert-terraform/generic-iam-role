@@ -1,22 +1,25 @@
 
 
-// resource "aws_s3_bucket" "b" {
-//   bucket = "${var.name}"
-//   acl    = "${var.base_acl}"
-
-//   tags = {
-//     Name        = "${var.prefix}${var.owner}"
-//     Environment = "dev"
-//   }
-// }
-
-resource "aws_iam_role" "test_role" {
-  name = "${var.name}"
-
-  assume_role_policy = <<EOF${var.policy-document}EOF
-
-  tags = {
-    Name        = "${var.prefix}${var.owner}"
-    Environment = "dev"
+data "aws_iam_policy_document" "example" {
+  statement {
+    actions   = ["*"]
+    resources = ["*"]
   }
 }
+
+data "aws_iam_policy_document" "instance-assume-role-policy" {
+  statement {
+    actions = ["sts:AssumeRole"]
+
+    principals {
+      type        = "Service"
+      identifiers = ["ec2.amazonaws.com"]
+    }
+  }
+}
+
+resource "aws_iam_role" "instance" {
+  name               = "generic_role"
+  assume_role_policy = "${data.aws_iam_policy_document.instance-assume-role-policy.json}"
+}
+

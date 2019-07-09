@@ -12,21 +12,6 @@ variable "prefix" {
 
 variable "policy-document" {
     description = "Blob text of a valid policy document"
-    default = "
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "ec2.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
-  ]
-}"
-
 }
 
 
