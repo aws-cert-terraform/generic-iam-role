@@ -1,10 +1,19 @@
 
 
 data "aws_iam_policy_document" "example" {
+  
   statement {
-    actions   = ["*"]
-    resources = ["*"]
+    actions = [
+      "s3:*",
+      "ec2:*",
+    ]
+
+    resources = [
+      "arn:aws:s3:::*",
+      "arn:aws:ec2:::*",
+    ]
   }
+
 }
 
 data "aws_iam_policy_document" "instance-assume-role-policy" {
