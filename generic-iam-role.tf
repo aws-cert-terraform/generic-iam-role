@@ -28,7 +28,6 @@ data "aws_iam_policy_document" "instance-assume-role-policy" {
 }
 
 resource "aws_iam_role" "general_access" {
-  // name               = "generic_role"
   assume_role_policy = "${data.aws_iam_policy_document.instance-assume-role-policy.json}"
 }
 
