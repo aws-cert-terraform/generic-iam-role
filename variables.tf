@@ -16,8 +16,8 @@ variable "prefix" {
 // Tags 
 //
 
-variable "name" {
-    default = "generic-iam"
+variable "profile_name" {
+    default = "GenericAccessRole"
 }
 
 variable "project" {
