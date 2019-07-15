@@ -16,6 +16,7 @@ data "aws_iam_policy_document" "example" {
 
 }
 
+
 data "aws_iam_policy_document" "instance-assume-role-policy" {
   statement {
     actions = ["sts:AssumeRole"]
