@@ -1,6 +1,6 @@
 
 
-data "aws_iam_policy_document" "example" {
+data "aws_iam_policy_document" "generic_access_document" {
   
   statement {
     actions = [
@@ -17,19 +17,16 @@ data "aws_iam_policy_document" "example" {
 }
 
 
-data "aws_iam_policy_document" "instance-assume-role-policy" {
-  statement {
-    actions = ["sts:AssumeRole"]
+resource "aws_iam_role" "general_access" {
+  name = "${var.profile_name}"
+  assume_role_policy = "${data.aws_iam_policy_document.generic_access_document.json}"
 
-    principals {
-      type        = "Service"
-      identifiers = ["ec2.amazonaws.com"]
-    }
+  tags {
+    Owner = "${var.owner}"
   }
 }
 
-resource "aws_iam_role" "general_access" {
+resource "aws_iam_instance_profile" "general_access_profile" {
   name = "${var.profile_name}"
-  assume_role_policy = "${data.aws_iam_policy_document.instance-assume-role-policy.json}"
+  role = "${aws_iam_role.general_access.name}"
 }
-
