@@ -1,4 +1,4 @@
 
-output "iam_role_name" {
-  value = "${aws_iam_role.general_access.name}"
+output "iam_profile_name" {
+  value = "${aws_iam_instance_profile.general_access_profile.name}"
 }
