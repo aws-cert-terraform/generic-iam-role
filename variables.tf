@@ -16,7 +16,7 @@ variable "prefix" {
 // Tags 
 //
 
-variable "profile_name" {
+variable "role_name" {
     default = "GenericAccessRole"
 }
 

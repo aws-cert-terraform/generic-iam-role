@@ -1,28 +1,19 @@
 
 
-data "aws_iam_policy_document" "generic_access_document" {
-  
+data "aws_iam_policy_document" "generic_access_policy" {
   statement {
-    actions = [
-      "s3:*",
-      "ec2:*",
-    ]
+    actions = ["sts:AssumeRole"]
 
-    resources = [
-      "arn:aws:s3:::*",
-      "arn:aws:ec2:::*",
-    ]
+    principals {
+      type        = "Service"
+      identifiers = ["ec2.amazonaws.com"]
+    }
   }
-
 }
 
 
 resource "aws_iam_role" "general_access" {
-  name = "${var.profile_name}"
-  assume_role_policy = "${data.aws_iam_policy_document.generic_access_document.json}"
+  name = "${var.role_name}"
+  assume_role_policy = "${data.aws_iam_policy_document.generic_access_policy.json}"
 }
 
-resource "aws_iam_instance_profile" "general_access_profile" {
-  name = "${var.profile_name}"
-  role = "${aws_iam_role.general_access.name}"
-}
